@@ -1,4 +1,5 @@
 from timeit import default_timer as timer
+from utils import calculateAverage, calculateProgress
 import os
 import time
 
@@ -10,21 +11,23 @@ def doSingleBench():
 
 def doBench():
     length = 1000
+    benchMultThreshold = 100000
     benchResults = []
     last_progress = 0
 
     for benchCount in range(length):
-        benchResults.append(doSingleBench())
+        benchResult = doSingleBench()
+        benchResults.append(benchResult)
 
-        # Fortschritt berechnen und nur anzeigen, wenn er sich geändert hat
-        progress = int((benchCount + 1) / length * 100)
+        progress = calculateProgress(benchCount, length)
+
         if progress > last_progress:
             print(f"Progress: {progress}%")
             last_progress = progress
 
-    ResultSum = sum(benchResults)
+    finalResult = calculateAverage(benchResults) * benchMultThreshold
     print("Benchmark done!")
-    print(f"Result: {ResultSum}")
+    print(f"Result: {finalResult}")
 
 if __name__ == "__main__":
     doBench()
