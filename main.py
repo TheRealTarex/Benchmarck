@@ -1,5 +1,5 @@
 from timeit import default_timer as timer
-from utils import calculateAverage, calculateProgress
+from utils import calculateAverage, calculateProgress, getSystemInfo
 import os
 import time
 
@@ -22,12 +22,17 @@ def doBench():
         progress = calculateProgress(benchCount, length)
 
         if progress > last_progress:
-            print(f"Progress: {progress}%")
+            print(f"Progress: {round(progress, 1)}%")
             last_progress = progress
 
     finalResult = calculateAverage(benchResults) * benchMultThreshold
-    print("Benchmark done!")
-    print(f"Result: {finalResult}")
+    return finalResult
 
 if __name__ == "__main__":
-    doBench()
+    systemInfo = getSystemInfo()
+    print(systemInfo)
+    time.sleep(5)
+
+    result = doBench
+    print("Benchmark done!")
+    print(f"Result: {int(doBench())}")
