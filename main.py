@@ -10,11 +10,10 @@ def doSingleBench():
         pass
     return timer() - start
 
-def doBench():
+def doBenchMarck():
     length = 1000
     benchMultThreshold = 100000
     benchResults = []
-    last_progress = 0
 
     for benchCount in tqdm(range(length)):
         benchResult = doSingleBench()
@@ -24,10 +23,11 @@ def doBench():
     return finalResult
 
 if __name__ == "__main__":
+    os.system("cls")
     printSystemInfo()
     time.sleep(5)
     os.system("cls")
 
-    result = doBench()
+    result = doBenchMarck()
     print("Benchmark done!")
     print(f"Result: {int(result)}")
