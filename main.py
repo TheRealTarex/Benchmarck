@@ -1,5 +1,5 @@
 from timeit import default_timer as timer
-from utils import calculateAverage, calculateProgress, getSystemInfo
+from utils import calculateAverage, calculateProgress, getSystemInfo, printSystemInfo
 import os
 import time
 
@@ -29,10 +29,10 @@ def doBench():
     return finalResult
 
 if __name__ == "__main__":
-    systemInfo = getSystemInfo()
-    print(systemInfo)
+    printSystemInfo()
     time.sleep(5)
+    os.system("cls")
 
-    result = doBench
+    result = doBench()
     print("Benchmark done!")
-    print(f"Result: {int(doBench())}")
+    print(f"Result: {int(result)}")
