@@ -1,7 +1,8 @@
 from timeit import default_timer as timer
-from utils import calculateAverage, calculateProgress, getSystemInfo, printSystemInfo
+from utils import calculateAverage, getSystemInfo, printSystemInfo
 import os
 import time
+from tqdm import tqdm
 
 def doSingleBench():
     start = timer()
@@ -15,15 +16,9 @@ def doBench():
     benchResults = []
     last_progress = 0
 
-    for benchCount in range(length):
+    for benchCount in tqdm(range(length)):
         benchResult = doSingleBench()
         benchResults.append(benchResult)
-
-        progress = calculateProgress(benchCount, length)
-
-        if progress > last_progress:
-            print(f"Progress: {round(progress, 1)}%")
-            last_progress = progress
 
     finalResult = calculateAverage(benchResults) * benchMultThreshold
     return finalResult
